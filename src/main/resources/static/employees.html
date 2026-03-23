@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Employees</title>
+</head>
+<body>
+
+<h2>Employee List</h2>
+
+<table border="1" id="employeeTable">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Department</th>
+        <th>Salary</th>
+    </tr>
+</table>
+
+<script>
+    fetch("http://localhost:8080/employees")
+        .then(response => response.json())
+        .then(data => {
+            let table = document.getElementById("employeeTable");
+
+            data.forEach(emp => {
+    let row = table.insertRow();
+
+    row.insertCell(0).innerText = emp.id;
+    row.insertCell(1).innerText = emp.name;
+    row.insertCell(2).innerText = emp.department;
+    row.insertCell(3).innerText = emp.salary;
+
+    let btn = document.createElement("button");
+    btn.innerText = "Delete";
+    btn.onclick = function() {
+        fetch(`http://localhost:8080/employees/${emp.id}`, {
+            method: "DELETE"
+        }).then(() => location.reload());
+    };
+
+    row.insertCell(4).appendChild(btn);
+});
+        });
+</script>
+
+</body>
+</html>
