@@ -4,7 +4,6 @@ A Spring Boot–based REST API application to manage employee data efficiently. 
 
 ---
 
-
 ## 📌 Features
 
 - Add Employee
