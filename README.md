@@ -69,6 +69,9 @@ A Spring Boot–based REST API application to manage employee data efficiently. 
 ### Postman API Test
 ![Postman Output](postman-output.png)
 
+### H2 Database
+![H2 Database](h2-database.png)
+
 ## 👨‍💻 Author
 
 Vishwamurugan
