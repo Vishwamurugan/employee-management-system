@@ -26,7 +26,7 @@ public class EmployeeService {
     public Employee updateEmployee(Long id, Employee employee) {
         Employee existing = repository.findById(id).orElseThrow();
         existing.setName(employee.getName());
-        existing.setDepartment(employee.getDepartment());
+        existing.setDesignation(employee.getDesignation());
         existing.setSalary(employee.getSalary());
         return repository.save(existing);
     }

@@ -5,11 +5,68 @@
 </head>
 <body>
 
-<h1>Employee Management System</h1>
+<h2>Employee Management System</h2>
 
-<a href="employees.html">View Employees</a>
-<br><br>
-<a href="add-employee.html">Add Employee</a>
+<h3>Add Employee</h3>
+<input type="text" id="name" placeholder="Name">
+<input type="text" id="role" placeholder="Designation">
+<input type="number" id="salary" placeholder="Salary">
+<button onclick="addEmployee()">Add</button>
+
+<h3>All Employees</h3>
+<button onclick="getEmployees()">View Employees</button>
+
+<ul id="employeeList"></ul>
+
+<script>
+    const baseUrl = "http://localhost:8080/employees";
+
+    function addEmployee() {
+        const emp = {
+            name: document.getElementById("name").value,
+            department: document.getElementById("role").value,
+            salary: document.getElementById("salary").value
+        };
+
+        fetch(baseUrl, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(emp)
+        })
+        .then(res => res.json())
+        .then(data => {
+            alert("Employee Added!");
+        });
+    }
+
+    function getEmployees() {
+        fetch(baseUrl)
+        .then(res => res.json())
+        .then(data => {
+            let list = document.getElementById("employeeList");
+            list.innerHTML = "";
+
+            data.forEach(emp => {
+                let li = document.createElement("li");
+                li.innerHTML = emp.id + " - " + emp.name + " - " + emp.designation + " - " + emp.salary +
+                    ' <button onclick="deleteEmployee(' + emp.id + ')">Delete</button>';
+                list.appendChild(li);
+            });
+        });
+    }
+
+    function deleteEmployee(id) {
+        fetch(baseUrl + "/" + id, {
+            method: "DELETE"
+        })
+        .then(() => {
+            alert("Employee Deleted!");
+            getEmployees();
+        });
+    }
+</script>
 
 </body>
 </html>
